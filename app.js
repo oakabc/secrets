@@ -10,7 +10,7 @@ app.use(express.static("public"))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended:true}))
 
-mongoose.connect("mongodb+srv://chanakarn:12345678Oak@cluster0.ueqgbuk.mongodb.net/UserDB?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://chanakarn:<Password>@cluster0.ueqgbuk.mongodb.net/UserDB?retryWrites=true&w=majority");
 
 const userSchema ={
     email: String,
