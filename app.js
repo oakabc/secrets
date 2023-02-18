@@ -1,3 +1,4 @@
+require('dotenv').config() 
 const express = require("express");
 const bodyParser = require("body-parser")
 const ejs = require ("ejs")
@@ -13,7 +14,7 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended:true}))
 
 
-mongoose.connect("mongodb+srv://chanakarn:<PASSWORD>@cluster0.ueqgbuk.mongodb.net/UserDB?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://"+process.env.DB_USERNAME+":"+process.env.DB_PASSWORD+"@cluster0.ueqgbuk.mongodb.net/UserDB?retryWrites=true&w=majority");
 
 
 const userSchema = new mongoose.Schema({
@@ -22,12 +23,13 @@ const userSchema = new mongoose.Schema({
 });
 
 
-const secret = "ThisisSecret";
-userSchema.plugin(encrypt, {secret: secret, encryptedFields: ['password']});
+//const secret = "ThisisSecret";
+userSchema.plugin(encrypt, {secret: process.env.SECRET, encryptedFields: ['password']});
 
 
 const User = new mongoose.model("User", userSchema);
 
+console.log(process.env.SECRET) 
 
 app.get("/register", (req,res)=> {
    res.render("register");
